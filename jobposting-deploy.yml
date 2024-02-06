@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: jobposting
-        image: lch7087/jobposting:v117
+        image: lch7087/jobposting:v119
         ports:
         - containerPort: 8888
 
