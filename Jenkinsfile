@@ -124,8 +124,7 @@ spec:
         stage('Update Manifest & Push to GitHub') {
             steps {
                 script {
-                    // 앞서 설정하신 ID인 'Github-token'으로 통일했습니다.
-                    withCredentials([usernamePassword(credentialsId: 'Github-token', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: 'Github-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh """
                         # Git 사용자 설정
                         git config user.email "lch7087@gmail.com"
