@@ -127,8 +127,8 @@ spec:
                     withCredentials([usernamePassword(credentialsId: 'Github-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh """
                         # Git 사용자 설정
-                        git config user.email "lch7087@gmail.com"
-                        git config user.name "lch7087"
+                        git config user.email "your-email@gmail.com"
+                        git config user.name "your-name"
 
                         # YAML 파일에서 이미지 태그 수정
                         sed -i "s|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${IMAGE_TAG}|g" manifests/jobposting-deploy.yml
