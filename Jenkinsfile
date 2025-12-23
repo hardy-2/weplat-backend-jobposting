@@ -39,12 +39,28 @@ spec:
     }
 
     stages {
+        stage('Check Skip CI') {
+            steps {
+                script {
+                    // 마지막 커밋 메시지를 가져옴
+                    def commitMsg = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
+                    echo "최근 커밋 메시지: ${commitMsg}"
+
+                    if (commitMsg.contains("[skip ci]")) {
+                        echo "알림: [skip ci]가 감지되어 빌드를 중단합니다."
+                        currentBuild.result = 'ABORTED' 
+                        error("Stopping build to prevent infinite loop")
+                    }
+                }
+            }
+        }
+
         stage('Git Clone from gitSCM') {
             steps {
                 script {
                     try {
                         git branch: 'main',
-                            credentialsId: 'Git',
+                            credentialsId: 'Github-token',
                             url: 'https://github.com/hardy-2/weplat-backend-jobposting'
                         sh "ls -lat" 
                         sh "pwd"
@@ -108,11 +124,12 @@ spec:
         stage('Update Manifest & Push to GitHub') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'Github-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    // 앞서 설정하신 ID인 'Github-token'으로 통일했습니다.
+                    withCredentials([usernamePassword(credentialsId: 'Github-token', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh """
                         # Git 사용자 설정
-                        git config user.email "Your Name"
-                        git config user.name "your.email@example.com"
+                        git config user.email "lch7087@gmail.com"
+                        git config user.name "lch7087"
 
                         # YAML 파일에서 이미지 태그 수정
                         sed -i "s|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${IMAGE_TAG}|g" jobposting-deploy.yml
