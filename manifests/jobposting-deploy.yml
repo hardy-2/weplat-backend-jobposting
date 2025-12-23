@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobposting-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jobposting
+  template:
+    metadata:
+      labels:
+        app: jobposting
+    spec:
+      containers:
+      - name: jobposting
+        image: lch7087/jobposting:v24
+        ports:
+        - containerPort: 8888
