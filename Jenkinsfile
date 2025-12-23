@@ -131,13 +131,13 @@ spec:
                         git config user.name "lch7087"
 
                         # YAML 파일에서 이미지 태그 수정
-                        sed -i "s|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${IMAGE_TAG}|g" jobposting-deploy.yml
-
+                        sed -i "s|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${IMAGE_TAG}|g" manifests/jobposting-deploy.yml
+                        
                         # 변경사항 확인
                         cat jobposting-deploy.yml | grep image
 
                         # Git Add, Commit & Push
-                        git add jobposting-deploy.yml
+                        git add manifests/jobposting-deploy.yml
                         git commit -m "Update image tag to ${IMAGE_TAG} [skip ci]"
                         git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/hardy-2/weplat-backend-jobposting.git main
                         """
