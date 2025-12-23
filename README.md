@@ -18,4 +18,4 @@
 ## 4. 프로젝트의 빌드 및 실행 방법은 해당경로에 JHIPSTER-README.md 파일 참조
 12341234
 1
-test ci/cd
+test ci/cd1
