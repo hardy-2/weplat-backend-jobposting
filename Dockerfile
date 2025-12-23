@@ -1,4 +1,5 @@
-FROM openjdk:11-jre-slim
+FROM eclipse-temurin:11-jre
+#FROM openjdk:11-jre-slim
 ENV APP_HOME=/apps
 
 ARG JAR_FILE_PATH=build/libs/jobposting-0.0.1-SNAPSHOT.jar
